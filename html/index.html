@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Loading-screen made by Sylent</title>
+	<link rel="stylesheet" href="./css/style.css">
+	<link rel="stylesheet" href="./css/loading.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script src="./script.js"></script>
+</head>
+
+<body>
+	<div id="container">
+		<div class="background-container">
+			<div class="background backgroundToLeftAnim" id="background"></div>
+		</div>
+		<div class="loader-container">
+		  <div class="loader"></div>
+		</div>
+		<div id="Servername">SERVER</div>
+        <div id="Servername2">NAME</div>
+	<div id="Servername3">Drücke die Leertaste um die Musik zu Stoppen</div>
+		<div class="logo-container">
+			<div class="logoShader"></div>
+			<div class="logo"></div>
+		</div>
+		
+		<h1 class="text-container"></h1>
+	</div>
+
+	<script>
+		const messages = ["", "", ""];
+		let currentIndex = 0;
+
+		const messageElement = document.createElement("div");
+		messageElement.id = "message";
+		messageElement.style.position = "fixed";
+		messageElement.style.top = "60%";
+		messageElement.style.left = "50%";
+		messageElement.style.transform = "translate(-50%, -50%)";
+		messageElement.style.fontSize = "2rem";
+		messageElement.style.fontWeight = "bold";
+		messageElement.style.textAlign = "center";
+		messageElement.style.width = "100%";
+
+		document.body.appendChild(messageElement);
+
+		function showMessage() {
+			messageElement.style.opacity = 0;
+			setTimeout(() => {
+				messageElement.textContent = messages[currentIndex];
+
+				messageElement.style.opacity = 1;
+
+				currentIndex++;
+				if (currentIndex >= messages.length) {
+					currentIndex = 0;
+				}
+
+				setTimeout(showMessage, 10000);
+			}, 500);
+		}
+
+		showMessage();
+	</script>
+
+	<div id="page">
+		<audio id='music' volume='0.65' autoplay loop>
+			<source src="assets/music.mp3" type="audio/mpeg">
+			Error
+		</audio>
+		<script>
+			var audio = document.getElementById("music");
+			audio.volume = 0.25;
+
+			function toggleAudio() {
+				if (audio.paused) {
+					audio.play();
+				} else {
+					audio.pause();
+				}
+			}
+
+			function startAudio() {
+				audio.play();
+			}
+
+			document.addEventListener('keypress', function (evt) {
+				if (evt.keyCode == 32) {
+					toggleAudio();
+				}
+			});
+
+			window.onload = function () {
+				startAudio();
+			}
+		</script>
+	</div>
+</body>
+
+</html>
